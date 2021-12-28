@@ -1,0 +1,36 @@
+---
+kind: pipeline
+type: kubernetes
+name: "Ngnix"
+
+steps:
+  - name: echo
+    image: bash
+    commands:
+      - echo "Inicio pipeline"
+
+  - name: build and publish
+    image: plugins/gcr
+    settings:
+      repo: canary-main/nginx
+      tags:
+        - latest
+        - "${DRONE_COMMIT}"
+      json_key:
+        from_secret: google_credentials
+
+  - name: deploy
+    image: nytimes/drone-gke
+    settings:
+      cluster: borrar
+      expand_env_vars: true
+      namespace: nginx
+      vars:
+        replicas: 1
+        appname: nginx
+        project: canary-main
+      verbose: true
+      zone: us-central1
+    environment:
+      TOKEN:
+        from_secret: google_credentials

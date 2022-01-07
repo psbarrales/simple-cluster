@@ -7,5 +7,7 @@ ADD "https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/c
 RUN tar zxfv "/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.tgz"
 
 ADD . /
+RUN mkdir -p /root/html
+ADD index.html /root/html
 
 ENTRYPOINT [ "/entrypoint.sh" ]

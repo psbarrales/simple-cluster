@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{.appname}}
-          image: gcr.io/{{.project}}/nginx:latest
+          image: gcr.io/movelab-main/nginx:{{.build}}
           ports:
             - containerPort: 80
           env:

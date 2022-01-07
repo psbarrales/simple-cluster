@@ -20,3 +20,12 @@ spec:
           image: gcr.io/{{.project}}/nginx:latest
           ports:
             - containerPort: 80
+          env:
+            - name: "CONSUL_HTTP_ADDR"
+              value: {{.consul_http_addr}}
+            - name: "CONSUL_HTTP_TOKEN"
+              value: {{.consul_http_token}}
+            - name: "CONSUL_HTTP_SSL"
+              value: "true"
+            - name: "CONSUL_HTTP_SSL_VERIFY"
+              value: "false"

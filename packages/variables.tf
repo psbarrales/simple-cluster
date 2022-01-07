@@ -1,9 +1,9 @@
 variable "kubeconfig" {
   type    = string
-  default = "./../secure/kubeconfig"
+  default = "../secure/kubeconfig"
 }
 
 variable "kube-context" {
   type    = string
-  default = "kubeconfig"
+  default = "gke_movelab-main_us-central1-a_gke-beta"
 }

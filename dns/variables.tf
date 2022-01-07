@@ -1,7 +1,7 @@
 variable "project" {
   type        = string
   description = "Nombre del Proyecto"
-  default     = "canary-main"
+  default     = "movelab-main"
 }
 variable "location" {
   type        = string

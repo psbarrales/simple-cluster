@@ -12,7 +12,7 @@ steps:
   - name: build and publish
     image: plugins/gcr
     settings:
-      repo: canary-main/nginx
+      repo: movelab-main/nginx
       tags:
         - latest
         - "${DRONE_COMMIT}"
@@ -22,15 +22,17 @@ steps:
   - name: deploy
     image: nytimes/drone-gke
     settings:
-      cluster: borrar
+      cluster: gke-beta
       expand_env_vars: true
       namespace: nginx
       vars:
         replicas: 1
         appname: nginx
-        project: canary-main
+        project: movelab-main
+        consul_http_addr: consul.canary.movelab.cl
+        consul_http_token: a6554a75-8fb9-d864-0661-b1ffd9eaab8a
       verbose: true
-      zone: us-central1
+      zone: us-central1-a
     environment:
       TOKEN:
         from_secret: google_credentials

@@ -20,3 +20,43 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: deploys
+  # annotations:
+  #   prometheus.io/scrape: 'true'
+  #   prometheus.io/path: '/metrics'
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+  selector:
+    app: nginx
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kong-expose-nginx
+  namespace: deploys
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+    configuration.konghq.com: kong-ingress-nginx
+    cert-manager.io/cluster-issuer: letsencrypt-default
+spec:
+  rules:
+  - host: nginx.beta.movelab.cl
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: nginx-service
+          servicePort: 80
+  tls: # < placing a host in the TLS config will indicate a certificate should be created
+  - hosts:
+    - nginx.beta.movelab.cl
+    secretName: nginx-cert

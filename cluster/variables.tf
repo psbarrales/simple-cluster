@@ -1,12 +1,12 @@
 variable "project" {
   type        = string
   description = "Nombre del Proyecto"
-  default     = "canary-main"
+  default     = "movelab-main"
 }
 variable "location" {
   type        = string
   description = "Ubicación del clúster"
-  default     = "us-central1"
+  default     = "us-central1-a"
 }
 variable "credentials" {
   type        = string
@@ -16,17 +16,17 @@ variable "credentials" {
 variable "cluster-name" {
   type        = string
   description = "Nombre del cluster"
-  default     = "gke-canary"
+  default     = "gke-beta"
 }
 variable "pool-name" {
   type        = string
   description = "Nombre del pool en el clúster"
-  default     = "gke-pool-canary"
+  default     = "gke-pool-beta"
 }
 variable "initial-node-count" {
   type        = string
   description = "Número inicial de nodos"
-  default     = "1"
+  default     = "3"
 }
 variable "node-count" {
   type        = string

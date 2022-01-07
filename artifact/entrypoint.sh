@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/consul-template -config /config.hcl -once -exec "nginx -g 'daemon off;'"
+/consul-template -config /config.hcl -exec "nginx -g 'daemon off;'"

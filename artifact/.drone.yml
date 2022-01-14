@@ -18,6 +18,13 @@ steps:
         - "${DRONE_COMMIT}"
       json_key:
         from_secret: google_credentials
+    when:
+      branch:
+        - master
+        - "feature/*"
+      event:
+        - push
+
 
   - name: deploy
     image: nytimes/drone-gke
@@ -36,3 +43,32 @@ steps:
     environment:
       TOKEN:
         from_secret: google_credentials
+    when:
+      branch:
+        - master
+        - "feature/*"
+      event:
+        - push
+
+  - name: deploy-production
+    image: nytimes/drone-gke
+    settings:
+      cluster: production
+      expand_env_vars: true
+      namespace: nginx
+      vars:
+        replicas: 1
+        appname: nginx
+        build: "${DRONE_COMMIT}"
+        consul_http_addr: consul.canary.movelab.cl
+        consul_http_token: a6554a75-8fb9-d864-0661-b1ffd9eaab8a
+      verbose: true
+      zone: us-central1-a
+    environment:
+      TOKEN:
+        from_secret: google_credentials
+    when:
+      event:
+        - tag
+      ref:
+        - refs/tags/release-*

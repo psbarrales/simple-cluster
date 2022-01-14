@@ -1,5 +1,5 @@
 resource "google_container_cluster" "primary" {
-  provider                    = google
+  provider                    = google-beta
   name                        = "${var.cluster-name}"
   network                     = "default"
   location                    = "${var.location}"
@@ -13,6 +13,12 @@ resource "google_container_cluster" "primary" {
   master_auth {
     client_certificate_config {
       issue_client_certificate = true
+    }
+  }
+
+  addons_config {
+    istio_config {
+      disabled = false
     }
   }
 }

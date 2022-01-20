@@ -42,10 +42,10 @@ module "kibana" {
   source     = "./helm/kibana"
 }
 
-module "cluster-issuer" {
-  depends_on = [module.cert-manager]
-  source     = "./k8s/cluster_issuer"
-}
+// module "cluster-issuer" {
+//   depends_on = [module.cert-manager]
+//   source     = "./k8s/cluster_issuer"
+// }
 
 // module "kiali" {
 //   depends_on = [module.namespace]
